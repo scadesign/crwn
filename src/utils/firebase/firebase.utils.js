@@ -1,21 +1,21 @@
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  signInWithRedirect,
-  signInWithPopup,
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
-  authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
-  projectId: 'crwn-clothing-db-98d4d',
-  storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
-  messagingSenderId: '626766232035',
-  appId: '1:626766232035:web:506621582dab103a4d08d6',
+  apiKey: 'AIzaSyCqyciTMISeDGdcDzCAKstAggcP5gZHhh4',
+
+  authDomain: 'crwn-db-7df58.firebaseapp.com',
+
+  databaseURL: 'https://crwn-db-7df58.firebaseio.com',
+
+  projectId: 'crwn-db-7df58',
+
+  storageBucket: 'crwn-db-7df58.appspot.com',
+
+  messagingSenderId: '276972246867',
+
+  appId: '1:276972246867:web:196d9a2b089e13c0a7f3a6',
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -27,17 +27,12 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
-export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (
-  userAuth,
-  additionalInformation = {}
-) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
@@ -74,3 +69,5 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async () => await signOut(auth);
