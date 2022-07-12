@@ -8,7 +8,7 @@ const CartItem = ({ cartItem }) => {
       <ItemDetails>
         <span>{name}</span>
         <span>
-          {quantity} x ${price}
+          {quantity} x &pound;{price.toFixed(2)}
         </span>
       </ItemDetails>
     </CartItemContainer>
